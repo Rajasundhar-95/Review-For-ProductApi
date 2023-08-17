@@ -1,5 +1,5 @@
 @RestResource(urlMapping='/product/*')
-global class ProductRestApi  { 
+global class ProductRestAPI  { 
     
     @HttpGet
     global static ProductDetail getProducts(){
