@@ -1,5 +1,5 @@
 @isTest
-public class AccountRestAPITest {
+public class ProductRestAPITest {
     @testSetup
     public static void setup(){
         List<Product__c> prdtList = new List<Product__c>();
