@@ -1,24 +1,24 @@
 @isTest
-public class ProductRestAPITest {
+public class ProductRestAPIHandler_Test {
     @testSetup
     public static void setup(){
         List<Product__c> prdtList = new List<Product__c>();
         for(Integer i=0;i<5;i++){
-            Product__c prdt = new Product__c();
-            prdt.name = 'Test '+i;
-            prdt.Product_code__c = 'abc-00'+i;
+            Product__c product = new Product__c();
+            product.name = 'Test '+i;
+            product.Product_code__c = 'abc-00'+i;
             prdtList.add(prdt);
         }
         insert prdtList;
     }
 
     @isTest
-    static void testProductDetails_Success() {
+    static void checkProductDetails_Success() {
         RestRequest request = new RestRequest();
-        Product__c pdt = [SELECT Id,Name FROM Product__c WHERE Name='Test 0'];
+        Product__c product = [SELECT Id,Name FROM Product__c WHERE Name='Test 0'];
 
-        system.debug('pdt== ' + pdt );
-        request.requestURI = '/services/apexrest/product/' +  pdt.id;
+        system.debug('product== ' + product );
+        request.requestURI = '/services/apexrest/product/' +  product.id;
         RestContext.request = request;
 
         RestResponse responseMock = new RestResponse();
@@ -28,19 +28,19 @@ public class ProductRestAPITest {
 
         System.assertEquals(true, response.success);
         System.assertEquals('Product details retrieved successfully', response.message);
-        System.assertEquals(pdt.Id, response.productId);
-        System.assertEquals(pdt.Name, response.productName);
+        System.assertEquals(product.Id, response.productId);
+        System.assertEquals(product.Name, response.productName);
         System.assertEquals(200, RestContext.response.statusCode);
 
     }
     
       @isTest
-    static void testGetProducttDetails_Wrong() {
+    static void checkProductDetails_Wrong() {
         RestRequest request = new RestRequest();
 
-        Id ids = '0035i000009tPW5AAM';
+        Id IDS = '0035i000009tPW5AAM';
 
-        request.requestURI = '/services/apexrest/product/' + ids ;
+        request.requestURI = '/services/apexrest/product/' + IDS ;
         RestContext.request = request;
 
         RestResponse responseMock = new RestResponse();
@@ -54,7 +54,7 @@ public class ProductRestAPITest {
 
 }
     @isTest
-    static void testGetProducttDetails_Missing() {
+    static void checkProductDetails_Missing() {
         RestRequest request = new RestRequest();
         request.requestURI = '/services/apexrest/product/' ;
         RestContext.request = request;
@@ -71,13 +71,13 @@ public class ProductRestAPITest {
 }
 
      @isTest
-        static void testProductDelete(){
+        static void checkProductDelete(){
             RestRequest request = new RestRequest();
-            Product__c pdt = [SELECT Id,Name FROM Product__c WHERE Name='Test 0'];
+            Product__c product = [SELECT Id,Name FROM Product__c WHERE Name='Test 0'];
 
-            system.debug('pdt== ' + pdt );
-            //ID ids = 'a0F5i00000HpbdJEAR';
-            request.requestURI = '/services/apexrest/product/' +  pdt.id;
+            system.debug('product== ' + product );
+            //ID IDS = 'a0F5i00000HpbdJEAR';
+            request.requestURI = '/services/apexrest/product/' +  pdt.IDS;
             RestContext.request = request;
 
             RestResponse responseMock = new RestResponse();
@@ -87,13 +87,13 @@ public class ProductRestAPITest {
 
             System.assertEquals(true, response.success);
             System.assertEquals('Product deleted successfully', response.message);
-            System.assertEquals(pdt.Id, response.productId);
-            System.assertEquals(pdt.Name, response.productName);
+            System.assertEquals(product.Id, response.productId);
+            System.assertEquals(product.Name, response.productName);
 
         } 
 
         @isTest
-        static void testPrdtDeleteDetails_Missing() {
+        static void checkProductDeleteDetails_Missing() {
 
             RestRequest request = new RestRequest();
             request.requestURI = '/services/apexrest/product/' ;
@@ -113,13 +113,13 @@ public class ProductRestAPITest {
 }
 
      @isTest
-    static void testPrdtDeleteDetails_Wrong() {
+    static void checkProductDeleteDetails_Wrong() {
 
         RestRequest request = new RestRequest();
 
-        Id ids = '0035i000009tPW5AAM';
+        Id IDS = '0035i000009tPW5AAM';
 
-        request.requestURI = '/services/apexrest/product/' + ids ;
+        request.requestURI = '/services/apexrest/product/' + IDS ;
         RestContext.request = request;
 
         RestResponse responseMock = new RestResponse();
@@ -136,7 +136,7 @@ public class ProductRestAPITest {
 
 
     @isTest
-    static void testProductInsert(){
+    static void checkProductInsert(){
 
             RestRequest request = new RestRequest();
             request.requestURI = '/services/apexrest/product/' ;
@@ -153,7 +153,7 @@ public class ProductRestAPITest {
     }
 
         @isTest
-    static void testPrdtNameMiss(){
+    static void checkProductNameMissing(){
 
             RestRequest request = new RestRequest();
             request.requestURI = '/services/apexrest/product/' ;
@@ -170,10 +170,10 @@ public class ProductRestAPITest {
     }
 
         @isTest
-        static void testProductUpdate(){
+        static void checkProductUpdate(){
 
         RestRequest request = new RestRequest();
-        Product__c pdt = [SELECT Id,Name FROM Product__c WHERE Name='Test 0'];       
+        Product__c product = [SELECT Id,Name FROM Product__c WHERE Name='Test 0'];       
 
         request.requestURI = '/services/apexrest/product/' +  pdt.id;
         RestContext.request = request;
@@ -185,15 +185,15 @@ public class ProductRestAPITest {
 
         System.assertEquals(true, response.success);
         System.assertEquals('Product Updated successfully', response.message);
-        System.assertEquals(pdt.Id, response.productId);
-        System.assertEquals(pdt.Name, response.productName);
+        System.assertEquals(product.Id, response.productId);
+        System.assertEquals(product.Name, response.productName);
         //System.assertEquals(200, RestContext.response.statusCode);    
 
     }
 
 
         @isTest
-        static void testPrdtUpdateteDetails_Missing() {
+        static void checkPrdtUpdateteDetails_Missing() {
 
             RestRequest request = new RestRequest();
             request.requestURI = '/services/apexrest/product/' ;
@@ -210,13 +210,13 @@ public class ProductRestAPITest {
 
 }
      @isTest
-    static void testPrdtUPdateDetails_Wrong() {
+    static void checkPrdtUPdateDetails_Wrong() {
 
         RestRequest request = new RestRequest();
 
-        Id ids = '0035i000009tPW5AAM';
+        Id IDS = '0035i000009tPW5AAM';
 
-        request.requestURI = '/services/apexrest/product/' + ids ;
+        request.requestURI = '/services/apexrest/product/' + IDS ;
         RestContext.request = request;
         RestResponse responseMock = new RestResponse();
         RestContext.response = responseMock;
